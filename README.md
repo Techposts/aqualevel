@@ -75,22 +75,93 @@ AquaLevel is an IoT water level monitoring solution built on the ESP32 platform,
    - Echo to GPIO 3
 2. Mount the sensor at the top of your tank, facing down toward the water surface
 
-### Software Installation
-1. Clone this repository:
-   ```
-   git clone https://github.com/techposts/aqualevel.git
-   ```
-2. Open the project in Arduino IDE
-3. Install required libraries:
+## Getting Started
+You can install AquaLevel on your ESP32-C3 SuperMini in two ways:
+
+### Option 1: Using Arduino IDE
+
+1. Clone this repository or download the source code
+2. Open the `WLSv1.0.ino` file in Arduino IDE
+3. Install required libraries from Library Manager:
    - ESP32 board support
    - EEPROM
    - WiFi
    - WebServer
    - ESPmDNS
-4. Upload the sketch to your ESP32
+4. Select "ESP32C3 Dev Module" from the Board menu
+5. Connect your ESP32-C3 SuperMini via USB
+6. Click Upload to flash the code
 
-## Getting Started
+### Option 2: Flashing Pre-compiled Binaries
 
+You can flash the pre-compiled binaries directly to your ESP32-C3 using one of the following methods:
+
+#### Using ESP Flash Download Tool (Recommended for beginners)
+
+The ESP Flash Download Tool provides a user-friendly GUI for flashing ESP devices.
+
+1. **Download ESP Flash Download Tool**:
+   * Download from the [official Espressif website](https://www.espressif.com/en/support/download/other-tools)
+   * Flash tool User guide: [Flash Download Tools Guide](https://www.espressif.com/sites/default/files/documentation/flash_download_tool_user_manual_en.pdf)
+
+2. **Extract and run the tool**:
+   * Extract the ZIP file
+   * Run "flash_download_tool_x.x.x.exe" (where x.x.x is the version number)
+   * Select "ESP32-C3 RISC-V" from the chip type dropdown
+
+3. **Configure the tool as follows**:
+   * Set SPI SPEED to "80MHz"
+   * Set SPI MODE to "DIO"
+   * Set FLASH SIZE to "4MB" (or match your ESP32-C3's flash size)
+
+4. **Download and add the binary files with these specific addresses**:
+   * Click [+] and add `AquaLevel-ESP32C3-bootloader.bin` at address `0x0`
+   * Click [+] and add `AquaLevel-ESP32C3-partitions.bin` at address `0x8000`
+   * Click [+] and add `AquaLevel-ESP32C3.bin` at address `0x10000`
+   * Ensure all three checkboxes next to the file paths are checked
+
+5. **Select the appropriate COM port** where your ESP32-C3 is connected
+6. Set the baud rate to `921600` for faster flashing
+7. Click the "START" button to begin flashing
+8. Wait for the tool to display "FINISH" when the flashing is complete
+9. Press the reset button on your ESP32-C3 board
+
+#### Using esptool.py (Alternative method)
+
+esptool is a command-line utility for flashing ESP devices. Here's how to use it:
+
+1. **Install esptool** using pip (requires Python):
+```
+pip install esptool
+```
+
+2. **Open Command Prompt** (cmd) and navigate to your binary files:
+```
+cd C:\path\to\your\binaries
+```
+
+3. **Flash your ESP32-C3** with this command (replace COM3 with your actual port):
+```
+esptool.py --chip esp32c3 --port COM3 --baud 921600 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 80m --flash_size 4MB 0x0 AquaLevel-ESP32C3-bootloader.bin 0x8000 AquaLevel-ESP32C3-partitions.bin 0x10000 AquaLevel-ESP32C3.bin
+```
+
+4. **Troubleshooting**:
+   * If you have connection issues, try erasing the flash first:
+   ```
+   esptool.py --chip esp32c3 --port COM3 erase_flash
+   ```
+   
+   * If you still have issues, try a lower baud rate:
+   ```
+   esptool.py --chip esp32c3 --port COM3 --baud 115200 write_flash -z --flash_mode dio --flash_freq 80m --flash_size 4MB 0x0 AquaLevel-ESP32C3-bootloader.bin 0x8000 AquaLevel-ESP32C3-partitions.bin 0x10000 AquaLevel-ESP32C3.bin
+   ```
+   
+   * For detailed logs, add the `-v` flag:
+   ```
+   esptool.py -v --chip esp32c3 --port COM3 --baud 921600 write_flash -z --flash_mode dio --flash_freq 80m --flash_size 4MB 0x0 AquaLevel-ESP32C3-bootloader.bin 0x8000 AquaLevel-ESP32C3-partitions.bin 0x10000 AquaLevel-ESP32C3.bin
+   ```
+
+After flashing is complete, proceed with the below steps.
 ### Initial Setup
 1. Power on your AquaLevel device
 2. Connect to the WiFi network named "Aqualevel-XXXXX-Setup"

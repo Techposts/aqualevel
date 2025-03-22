@@ -4,7 +4,7 @@
 
 A comprehensive ESP32-based water level monitoring system with WiFi connectivity, web dashboard, and customizable alerts.
 
-![AquaLevel Dashboard](images/dashboard.png)
+![AquaLevel Dashboard](https://github.com/Techposts/aqualevel/blob/main/MainInterface.png)
 
 ## Overview
 
@@ -30,11 +30,16 @@ AquaLevel is an IoT water level monitoring solution built on the ESP32 platform,
 - Simple network configuration interface
 - Automatic reconnection if connection drops
 
+![AquaLevel Network Settings](https://github.com/Techposts/aqualevel/blob/main/NetworkSettings.png)
+
 ### Calibration & Settings
 - One-click calibration for empty and full states
 - Configurable tank dimensions and parameters
 - Intelligent volume calculation
 - Persistent settings with EEPROM storage
+
+![AquaLevel Tank Settings](https://github.com/Techposts/aqualevel/blob/main/TankSettings.png)
+
 
 ### Alert System
 - Configurable high and low water level thresholds
@@ -55,6 +60,10 @@ AquaLevel is an IoT water level monitoring solution built on the ESP32 platform,
 |-----------|-----------|
 | HC-SR04 Trigger | GPIO 1 |
 | HC-SR04 Echo | GPIO 3 |
+
+![AquaLevel Connection Diagram](https://raw.githubusercontent.com/Techposts/aqualevel/refs/heads/main/DIY%20Solar%20Powered%20Water%20Level%20Sensor%20-%20Waterproof%2C%20Touchless%20and%20Truly%20Wireless%20-%20Works%20with%20home%20Assistant%20(1).jpg)
+
+**NOTE: **Solar is Optional. You can provide direct power supply as well.
 
 ## Installation
 

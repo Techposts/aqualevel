@@ -69,7 +69,7 @@ AquaLevel is an IoT water level monitoring solution built on the ESP32 platform,
 ### Software Installation
 1. Clone this repository:
    ```
-   git clone https://github.com/yourusername/aqualevel.git
+   git clone https://github.com/techposts/aqualevel.git
    ```
 2. Open the project in Arduino IDE
 3. Install required libraries:
